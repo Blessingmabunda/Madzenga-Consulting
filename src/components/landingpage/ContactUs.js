@@ -31,7 +31,7 @@ const ContactForm = () => {
     // For now, we'll open the email client with the form data
     const subject = `Contact Form Submission from ${formData.fullName}`;
     const body = `Name: ${formData.fullName}%0D%0AEmail: ${formData.email}%0D%0AMessage: ${formData.message}`;
-    window.location.href = `mailto:info@flairconcepts.co.za?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:delimathevula@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -47,22 +47,11 @@ const ContactForm = () => {
             <div className="info-item">
               <div className="icon-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2C8.134 2 5 5.134 5 9c0 4.418 4.268 9.37 6.197 11.318a1 1 0 001.606 0C14.732 18.37 19 13.418 19 9c0-3.866-3.134-7-7-7zm0 10a3 3 0 110-6 3 3 0 010 6z" />
                 </svg>
               </div>
               <div className="info-text">
-                <p>Hlayiseka T Mabunda – Editorial & Sales Director</p>
-              </div>
-            </div>
-
-            <div className="info-item">
-              <div className="icon-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <div className="info-text">
-                <p>Phone: <a href="tel:+27735947166" className="phone-link">073 594 7166</a></p>
+                <p>Location: <span className="location-text">123 Main Street, City, Country</span></p>
               </div>
             </div>
 
@@ -73,18 +62,18 @@ const ContactForm = () => {
                 </svg>
               </div>
               <div className="info-text">
-                <p>Email: <a href="mailto:info@flairconcepts.co.za" className="email-link">info@flairconcepts.co.za</a></p>
+                <p>Email: <a href="mailto:delimathevula@gmail.com" className="email-link">delimathevula@gmail.com</a></p>
               </div>
             </div>
 
             <div className="info-item">
               <div className="icon-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               </div>
               <div className="info-text">
-                <p>Website: <a href="https://flairmagazineza.wordpress.com" target="_blank" rel="noopener noreferrer" className="website-link">flairmagazineza.wordpress.com</a></p>
+                <p>Phone: <a href="tel:+27836731454" className="phone-link">083 673 1454</a></p>
               </div>
             </div>
           </div>
@@ -137,32 +126,37 @@ const ContactForm = () => {
           width: 100%;
           padding: 0;
           overflow: hidden;
+          background-color: #000;
+          color: #fff;
         }
-.contact-header {
-  color: black;
-  padding: 40px 20px;
-  text-align: left;
-  max-width: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centers the content horizontally */
-  justify-content: center; /* Centers the content vertically */
-}
 
-.contact-header h1 {
-  font-size: 4rem;
-  font-weight: bold;
-  margin: 0 0 10px 0;
-  text-align: center; /* Centers the title text */
-}
+        .contact-header {
+          padding: 40px 20px;
+          text-align: left;
+          max-width: 100%;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background-color: #000;
+        }
 
-.contact-header p {
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin: 0;
-  text-align: center; /* Centers the paragraph text */
-}
+        .contact-header h1 {
+          font-size: 4rem;
+          font-weight: bold;
+          margin: 0 0 10px 0;
+          text-align: center;
+          color: orange ;
+        }
+
+        .contact-header p {
+          font-size: 1.1rem;
+          max-width: 800px;
+          margin: 0;
+          text-align: center;
+          color: #ccc;
+        }
 
         .contact-content {
           display: flex;
@@ -176,6 +170,7 @@ const ContactForm = () => {
           flex: 1;
           opacity: 0;
           animation: fadeInText 1.5s forwards;
+          color: #fff;
         }
 
         .info-item {
@@ -188,11 +183,12 @@ const ContactForm = () => {
           width: 60px;
           height: 60px;
           border-radius: 50%;
-          background-color: black;
+          background-color: green;
           display: flex;
           justify-content: center;
           align-items: center;
           margin-right: 15px;
+          border: 1px solid #333;
         }
 
         .icon {
@@ -208,16 +204,21 @@ const ContactForm = () => {
         .info-text p {
           margin: 0;
           font-size: 1.1rem;
+          color: #ccc;
+        }
+
+        .location-text {
+          color: orange;
         }
 
         .website-link, .email-link, .phone-link {
-          color: #89298d;
+          color: orange;
           text-decoration: underline;
           transition: color 0.3s ease;
         }
 
         .website-link:hover, .email-link:hover, .phone-link:hover {
-          color: #6b1f6e;
+          color: #ffbb33;
         }
 
         .form-section {
@@ -229,11 +230,11 @@ const ContactForm = () => {
         }
 
         form {
-          background-color: #f9f9f9;
+          background-color: #111;
           padding: 30px;
           border-radius: 10px;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-          border: 1px solid #e0e0e0;
+          box-shadow: 0 0 20px rgba(255, 153, 0, 0.1);
+          border: 1px solid #333;
         }
 
         .form-group {
@@ -245,20 +246,21 @@ const ContactForm = () => {
           font-size: 1.5rem;
           font-weight: bold;
           margin-bottom: 8px;
-          color: #333;
+          color: #ff9900;
         }
 
         .form-group input,
         .form-group textarea {
           width: 100%;
           border: none;
-          border-bottom: 2px solid #333;
+          border-bottom: 2px solid #ff9900;
           padding: 12px 10px;
           font-size: 1rem;
-          background: white;
+          background: #222;
+          color: #fff;
           outline: none;
           border-radius: 4px;
-          box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+          box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
         }
 
         .form-group textarea {
@@ -268,7 +270,8 @@ const ContactForm = () => {
 
         .form-group input:focus,
         .form-group textarea:focus {
-          border-bottom: 2px solid #89298d;
+          border-bottom: 2px solid #ffbb33;
+          background-color: #333;
         }
 
         .submit-container {
@@ -278,18 +281,20 @@ const ContactForm = () => {
         }
 
         .submit-button {
-          background-color: #89298d;
+          background-color: #ff9900;
           color: white;
           font-size: 1.2rem;
+          font-weight: bold;
           padding: 12px 40px;
           border: none;
           border-radius: 4px;
           cursor: pointer;
-          transition: background-color 0.3s ease;
+          transition: all 0.3s ease;
         }
 
         .submit-button:hover {
-          background-color: #6b1f6e;
+          background-color: #ffbb33;
+          box-shadow: 0 0 15px rgba(255, 153, 0, 0.5);
         }
 
         .fade-in {

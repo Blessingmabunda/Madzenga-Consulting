@@ -3,27 +3,25 @@ import HeroSection from "../../components/landingpage/HeroSection.js";
 import AboutUs from "../../components/landingpage/AboutUs";
 import Services from "../../components/landingpage/Services";
 import Quality from "../../components/landingpage/QualityAssurance.js";
-import Testimonials from "../../components/landingpage/Testimonials";
 import ContactUs from "../../components/landingpage/ContactUs";
-import Table from "../../components/landingpage/table.js";
-import Powered from "../../components/landingpage/powered.js";
-import FAQ from "../../components/landingpage/FAQ";
+import Footer from "../../components/landingpage/Footer.js";
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
-  const [headerColor, setHeaderColor] = useState("#00bf63");
+  const [headerColor, setHeaderColor] = useState("green");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isSqueezing, setIsSqueezing] = useState(false);
 
   const handleScroll = useCallback(() => {
     requestAnimationFrame(() => {
-      setHeaderColor(window.scrollY > 50 ? "#00bf63" : "#00bf63");
+      setHeaderColor(window.scrollY > 50 ? "green" : "green");
     });
   }, []);
 
   const navigate = useNavigate();
   const handleNavigation = (e) => {
     e.preventDefault();
-    navigate("/proofreading-services"); // Navigate to a new page
+    navigate("/proofreading-services");
   };
 
   useEffect(() => {
@@ -38,21 +36,42 @@ const LandingPage = () => {
     };
   }, [handleScroll]);
 
+  const toggleSidebar = () => {
+    if (sidebarOpen) {
+      setSidebarOpen(false);
+      setIsSqueezing(false);
+    } else {
+      setIsSqueezing(true);
+      setTimeout(() => {
+        setSidebarOpen(true);
+      }, 1000); // Wait for the content to disappear before opening the sidebar
+    }
+  };
+
+  useEffect(() => {
+    if (sidebarOpen || isSqueezing) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [sidebarOpen, isSqueezing]);
+
   const scrollToSection = (id) => {
     setTimeout(() => {
       const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
-        // Close sidebar after clicking a link on mobile
         setSidebarOpen(false);
+        setIsSqueezing(false);
       }
     }, 100);
   };
 
   return (
-    <div style={{ width: "100vw", overflowX: "hidden" }}>
+    <div className={`page-wrapper ${isSqueezing ? "squeezing" : ""} ${sidebarOpen ? "sidebar-active" : ""}`}>
       {/* Header Section */}
       <header
+        className={`main-header ${isSqueezing ? "header-squeezing" : ""} ${sidebarOpen ? "header-shifted" : ""}`}
         style={{
           position: "fixed",
           top: 0,
@@ -65,16 +84,13 @@ const LandingPage = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          transition: "background-color 0.3s ease",
           width: "100%",
         }}
       >
-        {/* Company Name in place of the logo */}
         <div style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}>
           Madzenga Consulting
         </div>
 
-        {/* Desktop Navigation - only visible on desktop */}
         <nav className="desktop-nav">
           <ul className="nav-list">
             <li>
@@ -143,8 +159,7 @@ const LandingPage = () => {
           </ul>
         </nav>
 
-        {/* Mobile menu hamburger icon - only visible on mobile */}
-        <div className="mobile-menu-icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <div className="mobile-menu-icon" onClick={toggleSidebar}>
           <div className={`hamburger ${sidebarOpen ? "open" : ""}`}>
             <span></span>
             <span></span>
@@ -153,8 +168,8 @@ const LandingPage = () => {
         </div>
       </header>
 
-      {/* Mobile Sidebar - only visible on mobile when toggled */}
-      <div className={`mobile-sidebar ${sidebarOpen ? 'open' : ''}`}>
+      {/* Mobile Sidebar */}
+      <div className={`mobile-sidebar ${sidebarOpen ? "open" : ""}`}>
         <div style={{ display: "flex", justifyContent: "center", padding: "0px", marginTop: "-50px" }}>
           <img
             src={require("./../../assets/logo.png")}
@@ -162,7 +177,7 @@ const LandingPage = () => {
             style={{ height: "60px", width: "60px" }}
           />
         </div>
-        <div className="sidebar-close" onClick={() => setSidebarOpen(false)}>
+        <div className="sidebar-close" onClick={toggleSidebar}>
           ✕
         </div>
         <ul className="sidebar-nav-list" style={{ marginTop: "10px" }}>
@@ -194,22 +209,22 @@ const LandingPage = () => {
         </ul>
       </div>
 
-      {/* Overlay for when sidebar is open */}
-      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}></div>}
+      {/* Overlay */}
+      {(sidebarOpen || isSqueezing) && (
+        <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+      )}
 
       {/* Page Content */}
-      <div style={{ paddingTop: "80px", width: "100vw", overflowX: "hidden" }}>
+      <div
+        className={`page-content ${isSqueezing ? "content-squeezing" : ""} ${sidebarOpen ? "content-shifted" : ""}`}
+        style={{ paddingTop: "80px", width: "100vw", overflowX: "hidden" }}
+      >
         <HeroSection />
         <div id="about-us"><AboutUs /></div>
         <Services />
-        {/* <div id="services"><Testimonials /></div> */}
-        {/* <div id="proofreading"><Table /></div> */}
         <Quality />
         <ContactUs />
-        <br />
-        {/* <Powered /> */}
-        {/* <Table />
-        <Testimonials /> */}
+        <Footer />
       </div>
 
       {/* Global Styles */}
@@ -225,6 +240,32 @@ const LandingPage = () => {
           body, html {
             width: 100%;
             overflow-x: hidden;
+          }
+
+          .page-wrapper {
+            position: relative;
+            width: 100vw;
+            overflow-x: hidden;
+          }
+
+          .squeezing {
+            transition: all 1s ease;
+          }
+
+          .content-squeezing, .header-squeezing {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 2s ease;
+            transform-origin: center center;
+          }
+
+          .sidebar-active {
+            transition: transform 0.5s ease;
+          }
+
+          .content-shifted, .header-shifted {
+            transform: translateX(-180px);
+            transition: transform 0.5s ease;
           }
 
           .nav-list {
@@ -269,7 +310,6 @@ const LandingPage = () => {
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
           }
 
-          /* Mobile sidebar styles */
           .mobile-menu-icon {
             display: none;
             cursor: pointer;
@@ -313,7 +353,7 @@ const LandingPage = () => {
             background-color: white;
             z-index: 2000;
             padding: 60px 20px 20px;
-            transition: right 0.3s ease;
+            transition: right 0.5s ease;
             box-shadow: -5px 0 15px rgba(0,0,0,0.2);
             overflow-y: auto;
           }
@@ -327,7 +367,7 @@ const LandingPage = () => {
             top: 20px;
             right: 20px;
             font-size: 24px;
-            color: white;
+            color: #333;
             cursor: pointer;
           }
 
@@ -347,7 +387,7 @@ const LandingPage = () => {
             font-size: 18px;
             display: block;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
           }
 
           .sidebar-nav-button {
@@ -378,23 +418,41 @@ const LandingPage = () => {
             height: 100%;
             background-color: rgba(0,0,0,0.5);
             z-index: 1500;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
           }
 
-          /* Media Queries */
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+
           @media (max-width: 768px) {
             .desktop-nav {
               display: none;
             }
-            
+
             .mobile-menu-icon {
               display: block;
             }
           }
-          
+
           @media (min-width: 769px) {
             .mobile-sidebar, .mobile-menu-icon, .sidebar-overlay {
               display: none !important;
             }
+
+            .content-squeezing, .content-shifted,
+            .header-squeezing, .header-shifted {
+              transform: none !important;
+              opacity: 1 !important;
+            }
+          }
+
+          .main-header, .page-content {
+            will-change: transform;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
           }
         `}
       </style>
