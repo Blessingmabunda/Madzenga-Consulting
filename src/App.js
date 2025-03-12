@@ -6,7 +6,7 @@ import store from "./store/module/user/auth";
 // import SignUp from "./pages/public/signup";
 import LandingPAge from "./pages/public/landingPage";
 import SplashPage from "./pages/public/splash";
-// import Home from "./pages/private/home";
+import About from "./pages/public/about";
 // import Skill from "./pages/private/SkillShowcase";
 // import Table from "./pages/private/ManageMySkills";
 
@@ -20,8 +20,8 @@ const App = () => {
           {/* <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<SignUp />} /> */}
           <Route path="/LandingPAge" element={<LandingPAge />} />
-          <Route path="/" element={<LandingPAge />} />
-          {/* <Route path="/" element={<SplashPage />} /> */}
+          <Route path="/About" element={<About />} />
+          <Route path="/" element={<SplashPage />} />
           {/* Private Routes */}
           {/* <Route path="/Home" element={<Home />} /> */}
           {/* <Route path="/Skill" element={<Skill />} /> */}

@@ -11,18 +11,13 @@ const LandingPage = () => {
   const [headerColor, setHeaderColor] = useState("green");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isSqueezing, setIsSqueezing] = useState(false);
+  const navigate = useNavigate();
 
   const handleScroll = useCallback(() => {
     requestAnimationFrame(() => {
       setHeaderColor(window.scrollY > 50 ? "green" : "green");
     });
   }, []);
-
-  const navigate = useNavigate();
-  const handleNavigation = (e) => {
-    e.preventDefault();
-    navigate("/proofreading-services");
-  };
 
   useEffect(() => {
     document.body.style.overflowX = "hidden";
@@ -67,6 +62,24 @@ const LandingPage = () => {
     }, 100);
   };
 
+  // New function to handle navigation to About page
+  const navigateToAbout = (e) => {
+    e.preventDefault();
+    navigate("/About");
+    // Close sidebar if it's open
+    setSidebarOpen(false);
+    setIsSqueezing(false);
+  };
+
+  // Handler for the Get Started button
+  const handleGetStarted = (e) => {
+    e.preventDefault();
+    // You can either navigate to a page:
+    // navigate("/get-started");
+    // Or scroll to contact section:
+    scrollToSection("contact-us");
+  };
+
   return (
     <div className={`page-wrapper ${isSqueezing ? "squeezing" : ""} ${sidebarOpen ? "sidebar-active" : ""}`}>
       {/* Header Section */}
@@ -95,11 +108,8 @@ const LandingPage = () => {
           <ul className="nav-list">
             <li>
               <a
-                href="#about-us"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("about-us");
-                }}
+                href="/About"
+                onClick={navigateToAbout}
                 className="nav-link"
                 style={{ color: "white" }}
               >
@@ -121,7 +131,7 @@ const LandingPage = () => {
             </li>
             <li>
               <a
-                href="/proofreading-services"
+                href="#projects"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection("proofreading");
@@ -134,7 +144,7 @@ const LandingPage = () => {
             </li>
             <li>
               <a
-                href="/proofreading-services"
+                href="#quality"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection("proofreading");
@@ -147,10 +157,9 @@ const LandingPage = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="#contact-us"
+                onClick={handleGetStarted}
                 className="nav-link-button"
-                target="_blank"
-                rel="noopener noreferrer"
                 style={{ color: "white" }}
               >
                 Get Started
@@ -182,7 +191,7 @@ const LandingPage = () => {
         </div>
         <ul className="sidebar-nav-list" style={{ marginTop: "10px" }}>
           <li>
-            <a href="#about-us" onClick={(e) => { e.preventDefault(); scrollToSection("about-us"); }} className="sidebar-nav-link">
+            <a href="/About" onClick={navigateToAbout} className="sidebar-nav-link">
               About Us
             </a>
           </li>
@@ -192,17 +201,21 @@ const LandingPage = () => {
             </a>
           </li>
           <li>
-            <a href="/proofreading-services" onClick={(e) => { e.preventDefault(); scrollToSection("proofreading"); }} className="sidebar-nav-link">
+            <a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection("proofreading"); }} className="sidebar-nav-link">
               Projects
             </a>
           </li>
           <li>
-            <a href="/proofreading-services" onClick={(e) => { e.preventDefault(); scrollToSection("proofreading"); }} className="sidebar-nav-link">
+            <a href="#quality" onClick={(e) => { e.preventDefault(); scrollToSection("proofreading"); }} className="sidebar-nav-link">
               Quality Assurance
             </a>
           </li>
           <li>
-            <a href="" className="sidebar-nav-button" target="_blank" rel="noopener noreferrer">
+            <a 
+              href="#contact-us" 
+              onClick={(e) => { e.preventDefault(); scrollToSection("contact-us"); }} 
+              className="sidebar-nav-button"
+            >
               Get Started
             </a>
           </li>
@@ -221,13 +234,13 @@ const LandingPage = () => {
       >
         <HeroSection />
         <div id="about-us"><AboutUs /></div>
-        <Services />
-        <Quality />
-        <ContactUs />
+        <div id="services"><Services /></div>
+        <div id="quality"><Quality /></div>
+        <div id="contact-us"><ContactUs /></div>
         <Footer />
       </div>
 
-      {/* Global Styles */}
+      {/* Styles remain the same */}
       <style>
         {`
           * {
